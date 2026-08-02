@@ -11,6 +11,8 @@
 import { mount as smoothScroll } from '../effects/smooth-scroll/index.js';
 import { mount as dots } from '../effects/dot-grid-wave/index.js';
 import { mount as tilt } from '../effects/tilt-card/index.js';
+import { mount as reveal } from '../effects/scroll-reveal/index.js';
+import { mount as preview } from '../effects/hover-preview/index.js';
 import { mount as model } from '../effects/model-showcase/index.js';
 
 /**
@@ -89,6 +91,8 @@ function boot() {
     const targets = el.querySelectorAll('.wf-card, .wf-main__slot');
     if (targets.length) tilt([...targets], readOpts(el, 'tilt-card'));
   });
+  reveal('[data-fx~="reveal"]');
+  preview('[data-fx~="preview"]');
   model('.fx-model');
 }
 
