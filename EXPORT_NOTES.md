@@ -16,6 +16,7 @@ python -m http.server 5500
 ## 페이지
 
 - `index.html` — Home
+- `process.html` — Process
 - `contact.html` — Contact
 
 ## 구조
