@@ -1,0 +1,120 @@
+/**
+ * magnetic-button / style.css
+ * _core/core.css 를 먼저 불러오세요.
+ */
+
+/* ================================================================== *
+ * 1. 기능부 (필수)
+ * ================================================================== */
+
+.fx-magnetic-button {
+  position: relative;
+  transform-style: preserve-3d;
+
+  transform:
+    perspective(600px)
+    translate3d(var(--fx-mag-x, 0px), var(--fx-mag-y, 0px), 0)
+    rotateX(var(--fx-mag-rx, 0deg))
+    rotateY(var(--fx-mag-ry, 0deg))
+    scale(var(--fx-mag-scale, 1));
+
+  /* 글로우가 버튼 밖으로 새어나가지 않게 */
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.fx-magnetic-button[data-fx-magnetic='1'] {
+  will-change: transform;
+}
+
+/*
+ * 라벨은 버튼보다 labelFactor 배만큼 "더" 움직입니다.
+ * 이 미세한 어긋남이 버튼에 두께가 있다는 착각을 만듭니다.
+ * labelFactor를 음수로 주면 라벨이 반대로 밀려 유리 안에 갇힌 느낌이 납니다.
+ */
+.fx-magnetic-button [data-fx-label] {
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  transform: translate3d(
+    calc(var(--fx-mag-x, 0px) * var(--fx-mag-lf, 0.5)),
+    calc(var(--fx-mag-y, 0px) * var(--fx-mag-lf, 0.5)),
+    0
+  );
+  will-change: transform;
+}
+
+/* 커서를 따라다니는 빛 번짐 */
+.fx-magnetic-button__glow {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  opacity: var(--fx-mag-glow, 0);
+  background: radial-gradient(
+    circle at var(--fx-mag-px, 50%) var(--fx-mag-py, 50%),
+    var(--fx-glare) 0%,
+    transparent 55%
+  );
+}
+
+/* 꺼졌을 때 */
+.fx-magnetic-button.fx-inert [data-fx-label] {
+  transform: none;
+}
+.fx-magnetic-button.fx-inert .fx-magnetic-button__glow {
+  display: none;
+}
+
+/* ================================================================== *
+ * 2. 선택 사항 — 기본 버튼 스킨
+ * ================================================================== */
+
+.fx-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  padding: 14px 28px;
+  border: 0;
+  border-radius: 999px;
+
+  font: inherit;
+  font-size: 0.9375rem;
+  font-weight: 650;
+  letter-spacing: -0.005em;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+
+  color: #fff;
+  background: var(--fx-accent);
+  cursor: pointer;
+
+  box-shadow: 0 8px 22px -10px color-mix(in srgb, var(--fx-accent) 80%, #000);
+  transition: box-shadow var(--fx-duration-fast) var(--fx-ease),
+              background-color var(--fx-duration-fast) var(--fx-ease);
+}
+
+.fx-btn[data-fx-magnetic='1'] {
+  box-shadow: 0 16px 34px -12px color-mix(in srgb, var(--fx-accent) 85%, #000);
+}
+
+.fx-btn:active {
+  /* 누를 때는 자석 이동 위에 살짝 눌리는 느낌만 얹습니다 */
+  filter: brightness(0.94);
+}
+
+/* 보조 스타일(외곽선) */
+.fx-btn--ghost {
+  color: var(--fx-text);
+  background: transparent;
+  box-shadow: inset 0 0 0 1px var(--fx-border);
+}
+
+.fx-btn--ghost[data-fx-magnetic='1'] {
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--fx-accent) 60%, transparent),
+              0 14px 30px -16px rgba(0, 0, 0, 0.5);
+}

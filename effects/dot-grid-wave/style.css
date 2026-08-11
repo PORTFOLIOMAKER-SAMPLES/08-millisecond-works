@@ -57,8 +57,10 @@
   opacity: 1;
 }
 
-/* 콘텐츠는 항상 캔버스 위로 */
-.fx-dots > *:not(.fx-dot-grid-wave__canvas) {
+/* 콘텐츠는 항상 캔버스 위로.
+   `.fx-layer`(배경 레이어 공용 표식)는 건너뜁니다 — 같은 영역에 함께 걸린
+   다른 팩의 배경까지 콘텐츠로 끌어올리면 서로를 망칩니다. */
+.fx-dots > *:not(.fx-layer) {
   position: relative;
   z-index: 1;
 }

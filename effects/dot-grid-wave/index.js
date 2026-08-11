@@ -101,7 +101,8 @@ export const mount = defineEffect({
     }
 
     const canvas = document.createElement('canvas');
-    canvas.className = 'fx-dot-grid-wave__canvas';
+    /* fx-layer — 배경 레이어 공용 표식(다른 팩이 콘텐츠로 착각하지 않게). */
+    canvas.className = 'fx-dot-grid-wave__canvas fx-layer';
     canvas.setAttribute('aria-hidden', 'true');
     el.prepend(canvas);
     addCleanup(() => canvas.remove());
