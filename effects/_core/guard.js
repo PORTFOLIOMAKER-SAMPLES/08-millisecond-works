@@ -21,6 +21,8 @@ function mq(query) {
 
 /** OS에서 "동작 줄이기"를 켠 사용자인지. */
 export function prefersReducedMotion() {
+  /* 편집기(포메)에서는 고른 움직임을 확인할 수 있게 늘 보여 줍니다. 받은 사이트에는 이 표시가 없습니다 */
+  if (hasWindow && window.__pbShowMotion) return false;
   return mq('(prefers-reduced-motion: reduce)')?.matches ?? false;
 }
 
