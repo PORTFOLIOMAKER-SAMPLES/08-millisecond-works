@@ -8,7 +8,7 @@
  * 효과를 빼고 싶으면 아래 한 줄을 지우고 HTML의 data-fx도 지우면 됩니다.
  */
 
-import { mount as model } from '../effects/model-showcase/index.js';
+import { mount as dots } from '../effects/dot-grid-wave/index.js';
 
 /**
  * 영역 안쪽 요소에 붙는 효과(tilt/flip/magnetic/scramble)는 옵션을 부모에서 읽습니다.
@@ -32,7 +32,7 @@ function readOpts(el, prefix) {
 }
 
 function boot() {
-  model('.fx-model');
+  dots('[data-fx~="dots"]');
 }
 
 if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
